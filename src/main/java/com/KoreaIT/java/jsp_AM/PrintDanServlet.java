@@ -18,6 +18,7 @@ public class printDanServlet extends HttpServlet {
 
 		String inputedDan = request.getParameter("dan");
 		String inputedLimit = request.getParameter("limit");
+		String inputedColor = request.getParameter("color");
 
 		if (inputedDan == null) {
 			inputedDan = "1";
@@ -26,15 +27,15 @@ public class printDanServlet extends HttpServlet {
 			inputedLimit = "1";
 		}
 
-
 		int dan = Integer.parseInt(inputedDan);
 		int limit = Integer.parseInt(inputedLimit);
-
+		response.getWriter().print("<div style =\"color :"+inputedColor+"\">");
 		response.getWriter().append(String.format("==%d단==<br>", dan));
 
 		for (int i = 1; i <= limit; i++) {
 			response.getWriter().append(String.format("%d * %d = %d<br>", dan, i, dan * i));
 		}
+		response.getWriter().print("</div>");
 	}
 
 }
