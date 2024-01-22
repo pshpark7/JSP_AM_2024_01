@@ -1,4 +1,4 @@
-package com.KoreaIT.java.jsp_AM;
+package com.KoreaIT.java.Jsp_AM;
 
 import java.io.IOException;
 
@@ -13,6 +13,7 @@ public class HomePrintDanServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		request.getRequestDispatcher("/jsp/home/printDan.jsp").forward(request, response);
 	}
 

@@ -1,4 +1,4 @@
-package com.KoreaIT.java.jsp_AM;
+package com.KoreaIT.java.Jsp_AM;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
