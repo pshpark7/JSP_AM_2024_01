@@ -25,7 +25,6 @@ Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("art
 	<div>
 		내용 :
 		<%=articleRow.get("body")%></div>
-	<div><a style="color:red" href="delete?id=<%=articleRow.get("id")%>">게시물 지우기</a></div>
 	<div><a style="color:green" href="list">리스트로 돌아가기</a></div>
 </body>
 </html>
