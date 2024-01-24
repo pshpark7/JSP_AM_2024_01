@@ -69,13 +69,22 @@ int totalPage = (int) request.getAttribute("totalPage");
 </style>
 
 	<div class="page">
-		<%
-		for (int i = 1; i <= totalPage; i++) {
-		%>
-		<a class="<%=cPage == i ? "cPage" : ""%>" href="list?page=<%=i%>"><%=i%></a>
-		<%
+		<%int pageBlock = 10;
+		int startPage = ((cPage-1)/pageBlock)*pageBlock +1;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > totalPage){
+			endPage = totalPage;
 		}
 		%>
+		<% if(startPage>pageBlock){ %>
+			<a href="list?page=<%=startPage-pageBlock%>">◁</a>
+		<%} %>
+		<% for(int i =startPage;i<endPage+1;i++	){ %>
+			<a href="list?page=<%=i%>"><%=i%></a>
+		<%} %>
+		<% if(endPage<totalPage){ %>
+			<a href="list?page=<%=startPage+pageBlock%>">▷</a>
+		<%} %>
 	</div>
 
 
