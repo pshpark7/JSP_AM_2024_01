@@ -9,8 +9,9 @@
 <title>회원 가입 페이지</title>
 </head>
 <body>
+
 	<div>
-		<a href="../home/main">메인으로 돌아가기</a>
+		<a style="color: green" href="../home/main">메인화면으로 돌아가기</a>
 	</div>
 
 	<!-- 	<a href="https://www.naver.com" -->
@@ -93,9 +94,6 @@
 		<button type="submit">가입</button>
 	</form>
 
-	<div>
-		<a style="color: green" href="../home/main">메인화면으로 돌아가기</a>
-	</div>
 
 </body>
 </html>

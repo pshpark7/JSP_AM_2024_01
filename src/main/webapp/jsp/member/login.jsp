@@ -9,7 +9,8 @@
 </head>
 <body>
 	<div>
-		<a href="../home/main">메인으로 돌아가기</a>
+		<nav><a href="../home/main">메인으로 돌아가기</a></nav>
+		<nav><a style="color: green" href="../article/list">리스트로 돌아가기</a></nav>
 	</div>
 
 
@@ -60,10 +61,6 @@
 		<button type="submit">로그인</button>
 	</form>
 
-
-	<div>
-		<a style="color: green" href="../article/list">리스트로 돌아가기</a>
-	</div>
 
 </body>
 </html>
