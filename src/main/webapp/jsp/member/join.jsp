@@ -1,6 +1,7 @@
 <%@ page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,11 +31,12 @@
 			var loginPw = form.loginPw.value.trim();
 			var loginPwConfirm = form.loginPwConfirm.value.trim();
 			var name = form.name.value.trim();
-
+			
 			console.log('form.loginId.value : ' + loginId);
 			console.log('form.loginPw.value : ' + loginPw);
 			console.log('form.loginPwConfirm.value : ' + loginPwConfirm);
 			console.log('form.name.value : ' + name);
+			
 
 			if (loginId.length == 0) {
 				alert('아이디를 입력해주세요');
@@ -90,7 +92,6 @@
 		</div>
 		<button type="submit">가입</button>
 	</form>
-
 
 	<div>
 		<a style="color: green" href="../article/list">리스트로 돌아가기</a>
