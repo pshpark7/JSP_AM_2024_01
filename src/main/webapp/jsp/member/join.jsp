@@ -1,7 +1,7 @@
 <%@ page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -94,7 +94,7 @@
 	</form>
 
 	<div>
-		<a style="color: green" href="../article/list">리스트로 돌아가기</a>
+		<a style="color: green" href="../home/main">메인화면으로 돌아가기</a>
 	</div>
 
 </body>
