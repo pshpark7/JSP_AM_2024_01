@@ -13,12 +13,17 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/write")
 public class ArticleWriteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		int loginedMemberId = (int) session.getAttribute("loginedMemberId");
+		
+		request.setAttribute("loginedMemberId", loginedMemberId);		
 		request.getRequestDispatcher("/jsp/article/write.jsp").forward(request, response);
 	}
 

@@ -43,7 +43,7 @@ public class MemberDoLogoutServlet extends HttpServlet {
 			session.removeAttribute("loginedMember");
 
 			response.getWriter().append(
-					String.format("<script>alert('로그아웃 되었습니다.'); location.replace('../article/list');</script>"));
+					String.format("<script>alert('로그아웃 되었습니다.'); location.replace('../home/main');</script>"));
 
 		} catch (SQLException e) {
 			System.out.println("에러 : " + e);

@@ -17,6 +17,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/article/list")
 public class ArticleListServlet extends HttpServlet {
@@ -38,7 +39,7 @@ public class ArticleListServlet extends HttpServlet {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
 
 			int page = 1;
-
+			
 			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
@@ -53,18 +54,24 @@ public class ArticleListServlet extends HttpServlet {
 			int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage);
 
 			sql = SecSql.from("SELECT *");
-			sql.append("FROM article");
-			sql.append("ORDER BY id DESC");
+			sql.append("FROM article AS a");
+			sql.append("INNER JOIN `member` AS m");
+			sql.append("ON a.memberId = m.id");
+			sql.append("ORDER BY a.id DESC");
 			sql.append("LIMIT ?, ?;", limitFrom, itemsInAPage);
 
 			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
-
+			HttpSession session = request.getSession();
+			boolean isLogined = false;
+			if (session.getAttribute("loginedMemberId") != null) {
+				isLogined = true;
+			}
 			request.setAttribute("page", page);
 			request.setAttribute("totalCnt", totalCnt);
 			request.setAttribute("totalPage", totalPage);
 			request.setAttribute("itemsInAPage", itemsInAPage);
 			request.setAttribute("articleRows", articleRows);
-
+			request.setAttribute("isLogined", isLogined);
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
