@@ -77,6 +77,7 @@ public class DispatcherServlet extends HttpServlet {
 				if (actionMethodName.equals("list")) {
 					articleController.showList();
 				}
+
 			}
 
 		} catch (SQLException e) {
