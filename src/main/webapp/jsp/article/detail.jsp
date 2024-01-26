@@ -4,7 +4,6 @@
 
 <%
 Map<String, Object> articleRow = (Map<String, Object>) request.getAttribute("articleRow");
-boolean isLogined = (boolean) request.getAttribute("isLogined");
 %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +12,9 @@ boolean isLogined = (boolean) request.getAttribute("isLogined");
 <title>게시물 상세페이지</title>
 </head>
 <body>
+	<%@ include file="../part/topBar.jspf"%>
 	<h2>게시물 상세페이지</h2>
+
 	<div>
 		번호 :
 		<%=articleRow.get("id")%></div>
@@ -21,26 +22,22 @@ boolean isLogined = (boolean) request.getAttribute("isLogined");
 		날짜 :
 		<%=articleRow.get("regDate")%></div>
 	<div>
+		작성자 :
+		<%=articleRow.get("writer")%></div>
+	<div>
 		제목 :
 		<%=articleRow.get("title")%></div>
 	<div>
 		내용 :
 		<%=articleRow.get("body")%></div>
 	<div>
-		작성자:
-		<%=articleRow.get("name")%></div>
-	<div>
-	<%
-	if (isLogined) {
-	%>
 		<a href="modify?id=<%=articleRow.get("id")%>">수정</a> <a
 			href="doDelete?id=<%=articleRow.get("id")%>">del</a>
-			<%
-	}
-			%>
 	</div>
+
 	<div>
 		<a style="color: green" href="list">리스트로 돌아가기</a>
 	</div>
+
 </body>
 </html>

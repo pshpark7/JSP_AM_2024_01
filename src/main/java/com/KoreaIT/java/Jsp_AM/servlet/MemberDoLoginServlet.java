@@ -52,9 +52,6 @@ public class MemberDoLoginServlet extends HttpServlet {
 				return;
 			}
 
-			System.out.println(memberRow.get("loginPw"));
-			System.out.println(loginPw);
-
 			if (memberRow.get("loginPw").equals(loginPw) == false) {
 				response.getWriter().append(
 						String.format("<script>alert('비밀번호가 틀렸어'); location.replace('../member/login');</script>"));
@@ -68,7 +65,7 @@ public class MemberDoLoginServlet extends HttpServlet {
 
 			response.getWriter()
 					.append(String.format(
-							"<script>alert('%s님, 로그인 되었습니다.'); location.replace('../home/main');</script>",
+							"<script>alert('%s님, 로그인 되었습니다.'); location.replace('../article/list');</script>",
 							memberRow.get("name")));
 
 		} catch (SQLException e) {

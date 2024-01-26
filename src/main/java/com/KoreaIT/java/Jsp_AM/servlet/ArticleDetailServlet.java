@@ -36,23 +36,33 @@ public class ArticleDetailServlet extends HttpServlet {
 
 		try {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
-			response.getWriter().append("연결 성공!");
+
+			HttpSession session = request.getSession();
+
+			boolean isLogined = false;
+			int loginedMemberId = -1;
+			Map<String, Object> loginedMember = null;
+
+			if (session.getAttribute("loginedMemberId") != null) {
+				isLogined = true;
+				loginedMemberId = (int) session.getAttribute("loginedMemberId");
+				loginedMember = (Map<String, Object>) session.getAttribute("loginedMember");
+			}
+
+			request.setAttribute("isLogined", isLogined);
+			request.setAttribute("loginedMemberId", loginedMemberId);
+			request.setAttribute("loginedMember", loginedMember);
 
 			int id = Integer.parseInt(request.getParameter("id"));
 
-			SecSql sql = SecSql.from("SELECT *");
-			sql.append("FROM article AS a");
-			sql.append("INNER JOIN `member` AS m");
-			sql.append("ON a.memberId = m.id");
-			sql.append("WHERE a.id = ?;", id);
+			SecSql sql = SecSql.from("SELECT A.*, M.name AS writer");
+			sql.append("FROM article AS A");
+			sql.append("INNER JOIN `member` AS M");
+			sql.append("ON A.memberId = M.id");
+			sql.append("WHERE A.id = ?;", id);
 
 			Map<String, Object> articleRow = DBUtil.selectRow(conn, sql);
-			HttpSession session = request.getSession();
-			boolean isLogined = false;
-			if (session.getAttribute("loginedMemberId") != null) {
-				isLogined = true;
-			}
-			request.setAttribute("isLogined", isLogined);
+
 			request.setAttribute("articleRow", articleRow);
 			request.getRequestDispatcher("/jsp/article/detail.jsp").forward(request, response);
 

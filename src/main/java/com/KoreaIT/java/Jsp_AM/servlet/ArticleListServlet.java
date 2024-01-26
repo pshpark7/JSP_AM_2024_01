@@ -39,7 +39,7 @@ public class ArticleListServlet extends HttpServlet {
 			conn = DriverManager.getConnection(Config.getDbUrl(), Config.getDbUser(), Config.getDbPw());
 
 			int page = 1;
-			
+
 			if (request.getParameter("page") != null && request.getParameter("page").length() != 0) {
 				page = Integer.parseInt(request.getParameter("page"));
 			}
@@ -53,25 +53,37 @@ public class ArticleListServlet extends HttpServlet {
 			int totalCnt = DBUtil.selectRowIntValue(conn, sql);
 			int totalPage = (int) Math.ceil(totalCnt / (double) itemsInAPage);
 
-			sql = SecSql.from("SELECT *");
-			sql.append("FROM article AS a");
-			sql.append("INNER JOIN `member` AS m");
-			sql.append("ON a.memberId = m.id");
-			sql.append("ORDER BY a.id DESC");
+			sql = SecSql.from("SELECT A.*, M.name AS writer");
+			sql.append("FROM article AS A");
+			sql.append("INNER JOIN `member` AS M");
+			sql.append("ON A.memberId = M.id");
+			sql.append("ORDER BY id DESC");
 			sql.append("LIMIT ?, ?;", limitFrom, itemsInAPage);
 
 			List<Map<String, Object>> articleRows = DBUtil.selectRows(conn, sql);
-			HttpSession session = request.getSession();
-			boolean isLogined = false;
-			if (session.getAttribute("loginedMemberId") != null) {
-				isLogined = true;
-			}
+
 			request.setAttribute("page", page);
 			request.setAttribute("totalCnt", totalCnt);
 			request.setAttribute("totalPage", totalPage);
 			request.setAttribute("itemsInAPage", itemsInAPage);
 			request.setAttribute("articleRows", articleRows);
+
+			boolean isLogined = false;
+			int loginedMemberId = -1;
+			Map<String, Object> loginedMember = null;
+
+			HttpSession session = request.getSession();
+
+			if (session.getAttribute("loginedMemberId") != null) {
+				isLogined = true;
+				loginedMemberId = (int) session.getAttribute("loginedMemberId");
+				loginedMember = (Map<String, Object>) session.getAttribute("loginedMember");
+			}
+
 			request.setAttribute("isLogined", isLogined);
+			request.setAttribute("loginedMemberId", loginedMemberId);
+			request.setAttribute("loginedMember", loginedMember);
+
 			request.getRequestDispatcher("/jsp/article/list.jsp").forward(request, response);
 
 		} catch (SQLException e) {
